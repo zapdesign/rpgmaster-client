@@ -1,0 +1,65 @@
+.alinharTela{
+    display: flex;
+    margin-top: 25px;
+}
+.fundoMob{
+    display: flex;
+    padding: 15px 25px;
+    justify-content: space-between;
+    background-color: #11121C;
+    border: solid 2px #282741;
+    border-radius: 5px;
+}
+
+
+.forms{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items:start;
+    gap: 10px;
+
+    width: 30%;
+}
+
+.salvar{
+    padding: 5px 15px;
+    font-size: 15px;
+    background: #3C20D0;
+    width: 100%;
+    border: none;
+    transition: 300ms;
+    cursor: pointer;
+}
+
+.salvar:hover{
+    transform: scale(115%);
+}
+
+.listMobs{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 0px 25px;
+    width: 55%;
+    height: 80vh;
+
+    overflow-y: auto; 
+}
+
+.apagarButton{
+    cursor: pointer;
+    transition: 300ms;
+}
+
+.apagarButton:hover{
+    transform: scale(115%);
+}
+
+.inputs{
+    box-sizing: border-box;
+    background: #12131F;
+    border: none;
+    padding: 10px 15px;
+    width: 100%;
+}

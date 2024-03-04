@@ -1,0 +1,56 @@
+.inputFundo{
+    box-sizing: border-box;
+    background: none;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    width: 65px;
+}
+
+.inputFundo::placeholder{
+    color: white;
+}
+
+.checkBox{
+    font-size: 16px;
+}
+
+.cedulaTableName{
+    display: flex;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 5px 0px;
+    align-items: initial;
+}
+.cedulaTableR{
+    display: flex;
+    font-size: 16px;
+    margin: 5px 5px 5px 15px;
+    font-weight: 300;
+}
+
+.inputRetirar{
+    background: #630A0F;
+    border: solid 1px #AA2A31;
+    border-radius: 2px;
+    margin-top: 10px;
+    padding: 10px 15px;
+}
+
+.botaoCalcular{
+    padding: 5px 35px;
+    font-size: 15px;
+    background: #3C20D0;
+    border: none;
+    transition: 300ms;
+    cursor: pointer;
+}
+
+.botaoCalcular:hover{
+    transform: scale(115%);
+}
+
+.inputNicks {
+    background-color: #0F1017;
+    border: none;
+}
