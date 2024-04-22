@@ -1,8 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
+
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  font-family: sans-serif;
+  font-family: "Cinzel", sans-serif;
 }
 
 html,
@@ -25,4 +27,13 @@ a {
   html {
     color-scheme: dark;
   }
+}
+
+::-webkit-scrollbar {
+  width: 6px; 
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #403F52; 
+  border-radius: 3px;
 }

@@ -1,0 +1,176 @@
+.main{
+    width: 100%;
+    height: 100vh;
+    background: #0E0F16;
+
+}
+
+.fundoGeral{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    height: 100vh;
+    
+
+    background: #11121B;
+}
+
+
+.fundoColorido{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: space-between;
+    padding-top: 142px;
+
+    background-image: url('/images/fundo-login-tasklitics.png');
+    background-size: cover;
+   
+}
+
+.texto1{
+    color: #FFF;
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.texto2{
+    color: rgba(255, 255, 255, 0.70);
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.ajeitar01{
+    display: flex;
+    flex-direction: column;
+    justify-content: initial;
+    width: 100%;
+    padding-left: 50px;
+}
+
+.ajeitar{
+    display: flex;
+    width: 100%;
+    justify-content: right;
+}
+
+.imgPlataforma{
+    width: 557px;
+    height: 419px;
+    border-radius: 17px 0px 0px 0px;
+}
+
+
+.fundoLogin{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    background: #0E0F16;
+
+    box-shadow: -4px 0px 4px 0px rgba(0, 0, 0, 0.05);
+}
+
+.alinharCentro{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.fundoForms{
+    display: flex;
+    flex-direction: column;
+    width: 316px;
+    gap: 24px;
+}
+
+.logo{
+    width: 103px;
+    height: 104px;   
+}
+
+.alinharForms{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.alinharCampoForms{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 8px;
+}
+
+.inputForms{
+    display: flex;
+    width: 100%;
+    height: 38px;
+    padding: 10px 20px;
+    align-items: center;
+    gap: 10px;
+
+    border-radius: 8px;
+    border: 1px solid #ECECEC;
+}
+
+.alinharCheckbox{
+    display: flex;
+    gap: 8px;
+}
+
+.botaoForms{
+    display: flex;
+    width: 316px;
+    padding: 10px 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border: none;
+
+    transition: 300ms;
+    color: white;
+    border-radius: 8px;
+    background: #5C3BC6;
+    cursor: pointer;
+}
+
+.botaoForms:hover{
+    transform: scale(105%);
+}
+
+@media screen and (max-width: 1000px) {
+    .fundoColorido{
+        padding-top: 100px;
+    }
+
+    .ajeitar01{
+        padding-left: 30px;
+    }
+
+    .imgPlataforma{
+        width: 457px;
+        height: 319px;
+        border-radius: 17px 0px 0px 0px;
+    }
+}
+
+@media screen and (max-width: 792px) {
+    .fundoColorido{
+        width: 50%;
+    }
+
+    .imgPlataforma{
+        width: 357px;
+        height: 219px;
+        border-radius: 17px 0px 0px 0px;
+
+    }
+}
+
+@media screen and (max-width: 714px){
+    .fundoColorido{
+        display: none;
+    }
+}

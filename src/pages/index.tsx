@@ -1,183 +1,236 @@
-import { FaPlay } from "react-icons/fa";
-import styles from "@/styles/Home.module.css"
-import { IoIosSettings } from "react-icons/io";
-import { IoMdClose } from "react-icons/io";
-import Link from "next/link";
-import { useState } from "react";
-import SanfonaWallada from "@/component/sanfonaporquewallampediu";
-import { Mobs, Game } from "@/type/mobs"
-import { GETALL, GETONE, POST, PUT } from "@/function/api";
-import { useQuery } from 'react-query';
-import Image from "next/image";
-import MenuPrincipal from "@/component/menu";
-import MobView from "@/component/mobView";
-import ListMobs from "@/component/listUsandoMobs";
+import Head from "next/head";
+import styles from "@/styles/login.module.css";
+import { useEffect, useState } from "react";
+import { useMutation } from "react-query";
+import axios from "axios";
+import { URL } from "@/services/baseURL";
+import { toast } from "react-toastify";
+import { useRouter } from "next/router";
+import { axiosInstance } from "@/services/axiosInstance";
+var cookieCutter = require('cookie-cutter');
+
 
 export default function Home() {
+  const [ email, setEmail ] = useState('')
+  const [ password, setPassword ] = useState('')
 
-  const [ listMobs, setListMobs ] = useState(false)
-  const [ group, setGroup ] = useState([])
-  
-  const [ listUsando, setListUsando ] = useState(true)
-  const [ usando, setUsando ] = useState([])
-  
-  const [ viewMob, setViewMob ] = useState(false)
-  const [ atualMob, setAtualMob ] = useState<Mobs>()
+  const [ newEmail, setNewEmail ] = useState('')
+  const [ newPass, setNewPass ] = useState('')
+  const [ newPassTo, setNewPassTo ] = useState('')
+  const [ newName, setNewName ] = useState('')
 
-  const [selectedMobId, setSelectedMobId] = useState(0);
+  const isValidEmail = (email: string): boolean => {
+    // Regex para validar o formato de e-mail
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
 
-  const [ atualGame, setAtualGame ] = useState<Game>({
-    id: '0001',
-    rodada: 0
-  })
 
-  const getGroup = async () => {
-    setViewMob(false)
-    setListMobs(true)
-    const response = await GETALL('group')
-    setGroup(response)
-  }
+  const [ isNew, setIsNew ] = useState(false)
 
-  const getUsado = async () => {
-    const response = await GETALL('usando')
-    setUsando(response)
-  } 
+  const {push} = useRouter()
 
-  const pegarMob = async (id: number) => {
-    setSelectedMobId(id)
-    setListMobs(false)
-    setViewMob(true)
+  const { mutate, isLoading } = useMutation(
+    async () => 
+      await axios.post(`${URL}/auth/login`, {
+          email: email?.toLocaleLowerCase(),
+          password: password
+      }),
+      {
+        onSuccess: ({ data: data0 }) => {
+          cookieCutter.set('@access_token', data0.acess_token, {
+            path: "/",
+            expires: new Date(new Date().getTime() + 60 * 60 * 23 * 1000),
+          })
+          push('/app/')
+        },
+        onError: (data: any) => {
+          let msg = data.response.data.message
+          if(typeof msg === "string"){
+            if(msg === "Unauthorized"){
+              msg = 'Sem autorização.'
+            }
 
-    const response = await GETONE('usando', id)
-    setAtualMob(response)
-  }
+            if(msg === "Email or password provide is incorrect."){
+              msg = 'Email ou senha estão incorretos.'
+            }
 
-  const getGame = async () => {
-      try{
-        const response = await GETALL('game')
-        console.log(response)
-        setAtualGame(response)
-        return
-      }catch(err){
-        return console.log(err)
-      }
-  }
-
-  const runGame = async () => {  
-      setListUsando(false)
-
-      const newRodada = atualGame[0].rodada + 1;
-
-      await PUT({rodada: newRodada}, 'game', "0001");
-      
-      usando.map( async (mobs: Mobs) => {
-        const newMob = {...mobs, rodada: false}
-        try{
-          await PUT(newMob, 'usando', mobs.id)
-          
-        }catch(err){
-          return console.log(err)
+            toast(msg, {
+              position: "bottom-center",
+              autoClose: 3000,
+              type: "error",
+            })
+          }
         }
+      }
+  )
+
+  const novoCadastro = async () => {
+
+    if(!newName){
+      toast('Preencha seu nome.', {
+        position: "bottom-center",
+        autoClose: 3000,
+        type: "error",
       })
-      
-      getUsado()
-      getGame();
-      setListUsando(true)
+
+      return
+    }
+
+    if(!isValidEmail(newEmail)){
+      toast('Preencha o email.', {
+        position: "bottom-center",
+        autoClose: 3000,
+        type: "error",
+      })
+
+      return
+    }
+
+    if(!newPass && !newPassTo){
+      toast('Preencha sua senha.', {
+        position: "bottom-center",
+        autoClose: 3000,
+        type: "error",
+      })
+
+      return
+    }
+
+    if(newPass !== newPassTo){
+      toast('Suas senhas não são iguais.', {
+        position: "bottom-center",
+        autoClose: 3000,
+        type: "error",
+      })
+
+      return
+    }
+
+
+    try{
+      const response = await axiosInstance.post(`/users`,{
+        email: newEmail,
+        password: newPass,
+        name: newName
+      })
+
+      setEmail(newEmail)
+      setPassword(newPass)
+      mutate()
+      return
+
+    }catch(err){
+
+      let msg = err.response.data.message[0]
+
+      // Tratamento da mensagem de erro
+      if (msg === "password too weak") {
+        msg = 'Sua senha é muito fraca.';
+      }
+
+      // Exibir a mensagem de erro
+      toast(msg, {
+        position: "bottom-center",
+        autoClose: 3000,
+        type: "error",
+      });
+
+      return console.error(err);
+    }
   }
 
-  const { data, isLoading, isError } = useQuery('usando', async () => {
-    await getUsado()
-    await getGame()
-  });
-
-  if(isLoading){
-    return <h1>CARREGANDO</h1>
+  const cadastrar = (e: any) => {
+    e.preventDefault();
+    return novoCadastro()
   }
 
-  if(isError){
-    return <h1>Ativou o BACKEND?</h1>
+  const login = (e: any) => {
+    e.preventDefault();
+    return mutate()
   }
 
+  
   return (
-    <MenuPrincipal>
-      <main className={styles.main} style={{flexGrow: 1}}>
-        <menu className={styles.menuRodada}>
-          <div className={styles.alignFlex} style={{gap: '25px', alignItems: 'center'}}>
-            <FaPlay style={{cursor: 'pointer'}} onClick={runGame}/>
-            <p style={{fontSize: '15x'}}>Rodada {atualGame[0] !== undefined && atualGame[0].rodada}</p>
-          </div>
-          
-        </menu>
+    <>
+      <Head>
+        <title>Tasklitics | Login</title>
+        <meta name="description" content="Generated by create next app" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/icons/logo.svg" />
+      </Head>
+      <main className={styles.main}>
+      <div className={styles.fundoGeral}>
+        <div className={styles.fundoColorido}>
 
-        <div className={styles.alignFlex} style={{marginTop: '55px'}}>
-
-
-          <div className={styles.ladoMobs}>
-            <div className={styles.alignFlex}>
-              <p>Mobs</p>
-              <FaPlay onClick={() => getGroup()}/>
-            </div>
-
-            <div>
-                <div>
-
-                  {listUsando && (
-                    <div className={styles.fundoListaUsando} style={{margin: '25px 0px'}}>
-                        {usando[0] !== undefined && usando.map((cada: Mobs) => (
-                            <div key={cada.id} className={`${styles.fundoUsando} ${cada.id === selectedMobId ? styles.selectedMob : ''}`}  style={{padding: '15px 15px', borderRadius: '10px'}}>
-                              <ListMobs cada={cada} pegarMob={pegarMob} red={cada.rodada}></ListMobs>
-                            </div>
-                        ))}
-                    </div>
-                  )}
-
-                </div>
-            </div>
+          <div className={styles.ajeitar01}>
+            <h1 className={styles.texto1}>Sua sessão mais simples</h1>
+            <p className={styles.texto2}>Organização para o jogador e o mestre, <br></br>conheça o RPG Master.</p>
           </div>
 
-
-          <div className={styles.ladoInfo}>
-              {listMobs && (
-                <>
-                  <div className={styles.alignFlex}>
-                    <h1>Categorias</h1>
-                    <IoMdClose onClick={() => setListMobs(false)}/>
-                  </div>
-                  <div className={styles.alinharGroup}>
-                    {group[0] !== undefined && group.map((cada: Mobs) => (
-                      <div key={cada.id}>
-                        <SanfonaWallada props={cada} getUsado={getUsado} listMob={setListMobs}/>
-                      </div>
-                    ))}
-                  </div>
-                </>
-              )}
-
-              {viewMob && (
-                <>
-                  <div className={styles.alignFlex}>
-                      <h1 style={{fontSize: "25px"}}>Detalhe do Mob</h1>
-                      <IoMdClose style={{cursor: 'pointer'}} onClick={() => {
-                              setViewMob(false)
-                              setSelectedMobId(0);
-                          }
-                      }/>
-                  </div>
-
-                  {atualMob !== undefined && (
-                    <div key={atualMob.id} style={{padding: '25px 0px'}}>
-                        <MobView props={atualMob} getUsado={getUsado} setViewMob={setViewMob}/>
-                    </div>
-                  )}
-                </>
-              )}
+          <div className={styles.ajeitar}>
+            <img className={styles.imgPlataforma} src="/images/foto-app-login.png" alt="Foto tela inicial aplicativo RPG Master" />
           </div>
-          
+
         </div>
 
-        <Image width={82} height={82} src="/rato-pode-comer-abobrinha-6.jpg" alt="RATO COMENDO"></Image>
+        <div className={styles.fundoLogin}>
 
-      </main>
-     </MenuPrincipal>
+          <div className={styles.fundoForms}>
+
+            <div className={styles.alinharCentro}>
+              <img className={styles.logo} src="/logo.svg" alt="" />
+            </div>
+
+
+            {!isNew && <form onSubmit={login} className={styles.alinharForms}>
+            <h2>Login</h2>
+
+
+
+              <div className={styles.alinharCampoForms}>
+                <label htmlFor="email" >Endereço de email</label>
+                <input className={styles.inputForms} name="email" type="text" placeholder="example@name.com" onChange={(e: any) => setEmail(e.target.value)} />
+              </div>
+
+              <div className={styles.alinharCampoForms}>
+                <label htmlFor="password" >Senha</label>
+                <input className={styles.inputForms} name="password" type="password" placeholder="******" onChange={(e: any) => setPassword(e.target.value)}  />
+              </div>
+              
+              <input className={styles.botaoForms} type="submit" value="Login" />
+
+              <p style={{fontSize: '12px', textAlign: 'center', fontWeight: '300', marginTop: '10px'}}>se ainda não possuí uma conta, <span style={{color: '#5C3BC6', cursor: 'pointer'}} onClick={() => setIsNew(true)}>cadastre-se</span></p>
+            
+            </form>}
+            {isNew && <form onSubmit={cadastrar} className={styles.alinharForms}>
+            <h2>Cadastre-se</h2>
+
+            <div className={styles.alinharCampoForms}>
+                <label htmlFor="name" >Nome</label>
+                <input className={styles.inputForms} name="name" type="text" placeholder="Digite seu nome" onChange={(e: any) => setNewName(e.target.value)} />
+              </div>
+
+              <div className={styles.alinharCampoForms}>
+                <label htmlFor="email" >Endereço de email</label>
+                <input className={styles.inputForms} name="email" type="text" placeholder="example@name.com" onChange={(e: any) => setNewEmail(e.target.value)} />
+              </div>
+
+              <div className={styles.alinharCampoForms}>
+                <label htmlFor="password" >Senha</label>
+                <input className={styles.inputForms} name="password" type="password" placeholder="Digite sua senha" onChange={(e: any) => setNewPass(e.target.value)}  />
+                <input className={styles.inputForms} name="password" type="password" placeholder="Digite novamente" onChange={(e: any) => setNewPassTo(e.target.value)}  />
+              </div>
+              
+              <input className={styles.botaoForms} type="submit" value="Cadastrar" />
+
+              <p style={{fontSize: '12px', textAlign: 'center', fontWeight: '300', marginTop: '10px'}}>já possuí uma conta? <span style={{color: '#5C3BC6', cursor: 'pointer'}} onClick={() => setIsNew(false)}>Entrar</span></p>
+            
+            </form>}
+          </div>
+        </div>
+      </div>
+    </main>
+    </>
   );
 }

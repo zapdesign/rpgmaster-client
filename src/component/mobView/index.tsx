@@ -2,98 +2,125 @@ import { useState } from 'react'
 import styles from './mobview.module.css'
 import { DELETE, PUT } from '@/function/api';
 import { FaUserAstronaut } from 'react-icons/fa';
+import Image from 'next/image';
+import { Mobs } from '@/type/mobs';
+import { IoMdArrowDropdownCircle } from "react-icons/io";
+import { IoMdArrowDropupCircle } from "react-icons/io";
+import { axiosInstance } from '@/services/axiosInstance';
+import { FaRegTrashAlt } from "react-icons/fa";
+
+
+interface MobView {
+    props: Mobs;
+    setViewMob: (value: boolean) => void;
+    getUsado: () => Promise<void>;
+  }
 
 export default function MobView({props, getUsado, setViewMob}: any){
 
-    const [ mob, setMob ] = useState(props)
-    const [ dano, setDano ] = useState(0)
+
+    const [ newStats, setNew ] = useState({
+        resistencia: props.resistencia,
+        poder: props.poder,
+        nickname: props.nickname
+    })
+
+    const [ descricao, setDescricao ] = useState(false)
 
     const handleKeyPress = async (event: any) => {
         if (event.key === 'Enter') {
-            console.log(mob)
-            await PUT(mob, 'usando', mob.id)
+            console.log(newStats)
+            await axiosInstance.patch(`/all-monster/${props.id}`, {
+                resistencia: newStats.resistencia,
+                poder: newStats.poder,
+                nickname: newStats.nickname
+            })
             getUsado()
         }
     };
 
-    const damage = async () => {
-        const danoAtual = dano
-        setDano(0)
-        const newLife = mob.endurance - danoAtual
-        if(newLife <= 0){
-            const confirmarExclusao = window.confirm("Tem certeza que deseja excluir este mob?");
+    const deleteMonster = async () => {
+        const confirmarExclusao = window.confirm("Tem certeza que deseja excluir este mob?");
             if(confirmarExclusao){
-                await DELETE(mob.id, 'usando')
+                await axiosInstance.delete(`/all-monster/${props.id}`)
                 getUsado()
                 setViewMob(false)
                 return
             }
-            return
-        }
-        const attMob = {...mob, endurance: newLife}
-
-        setMob(attMob)
-
-        await PUT(attMob, 'usando', mob.id)
-        getUsado()
         return
     }
 
-    return (
+    return (    
         <>
-            <div style={{display: 'flex', gap: '25px'}} >
-                <p style={{fontSize: '25px', fontWeight: '700'}}>{props.name}</p>
-                <input className={styles.inputNicks} name='nick'placeholder='Nickname' value={mob.nickname} type="text" onChange={(e) => setMob({...mob, nickname: e.target.value})} onKeyDown={handleKeyPress}/>
+            <div className={styles.diamond}>
+                <Image width={100} height={100}  src={props.image_monster} style={{objectFit: 'cover', border:'solid 3px #282741', borderRadius: '10px', cursor: 'pointer'}} alt={props.nome}></Image>
             </div>
 
-            <div style={{display: 'flex', padding: '15px 0px'}}>
-                <div style={{display: 'flex', gap: '10px'}}>
-                    <img src="/raio.svg" alt="Heart Logo" />
-                    <input className={styles.inputFundo} type="number" value={mob.endurance} />
-                </div>
-                <div style={{display: 'flex', gap: '10px'}}>
-                    <img src="/health.svg" alt="Sword Logo" />
-                    <input className={styles.inputFundo} type="number" value={mob.endurance} />
-                </div>
-                <div style={{display: 'flex', gap: '10px'}}>
-                    <img src="/sword.svg" alt="Sword Logo" />
-                    <input className={styles.inputFundo} type="number" value={mob.dice} />
-                </div>
-                <div style={{display: 'flex', gap: '10px'}}>
-                    <img src="/Vector.svg" alt="Shield Logo" />
-                    <input className={styles.inputFundo} type="number" value={mob.endurance} />
-                </div>
+            <div style={{display: 'flex', gap: '25px', width: '100%', justifyContent: 'center', alignItems: 'center'}}>
+                <p style={{fontSize: '25px', fontWeight: '700'}}>{props.nome}</p>
+                |
+                <p style={{fontSize: '25px', fontWeight: '700'}}>{props.caracteristicas}</p>
+                <FaRegTrashAlt style={{cursor: 'pointer'}} onClick={deleteMonster}/>
             </div>
 
-            <table style={{padding: '25px 0px'}}>
-                <tbody>
-                    <tr style={{display: 'flex'}}>
-                        <th className={styles.cedulaTableName}>Nível de Proeficiênca </th>
-                        <th className={styles.cedulaTableR}> {props.atributeLevel}</th>
-                    </tr>
-                    <tr style={{display: 'flex'}}>
-                        <th className={styles.cedulaTableName}>Ataques</th>
-                        <th className={styles.cedulaTableR}> {props.might}</th>
-                    </tr>
-                    
-                </tbody>
-            </table>
+            <input style={{fontSize: '15px', border: 'none', background: 'none', width: '100%', textAlign: 'center'}} name='nick'placeholder='Nickname' value={newStats.nickname} type="text" onChange={(e) => setNew({...newStats, nickname: e.target.value})} onKeyDown={handleKeyPress}/>
 
+           
 
-            <div style={{fontSize: '20px', fontWeight: '700', padding:'15px 0px'}}>
-                <div style={{display: 'flex'}}>
-                    <div style={{padding:'25px 0px'}}>
-
-                        <label style={{display: 'flex',flexDirection: 'column', fontWeight: '300',fontSize: '17px'}} htmlFor="dano">Dano</label>
-                        <input className={styles.inputRetirar} name='dano' type="number" value={dano} onChange={(e) => setDano(e.target.value)}/>
-
-                        <div style={{marginTop: '15px'}}>
-                            <button onClick={damage} className={styles.botaoCalcular}>Calcular</button>
-                        </div>
+            <div  style={{display: 'flex', padding: '15px 0px', alignItems: 'end', gap: '25px', flexWrap: 'wrap'}}>
+                <div className={styles.fundoLosanguloPoint}>
+                    <div className={styles.losanguloGrande}>
+                        <p style={{transform: 'rotate(-45deg)', fontSize: '25px'}}>{props.nivel_de_atributo}</p>
                     </div>
+                    <p className={styles.textLosangulo}>Nível de Atributo</p>
+                </div>
+                <div className={styles.fundoLosanguloPoint}>
+                    <div className={styles.losanguloPequeno}>
+                    <input style={{ transform: 'rotate(-45deg)', fontSize: '15px', border: 'none', background: 'none', width: '100%', textAlign: 'center'}} value={newStats.resistencia} onChange={(e) => setNew({...newStats, resistencia: e.target.value})} onKeyDown={handleKeyPress}/>
 
+                    </div>
+                    <p className={styles.textLosangulo}>Resistência</p>
+                </div>
+                <div className={styles.fundoLosanguloPoint}>
+                    <div className={styles.losanguloPequeno}>
+                    <input style={{ transform: 'rotate(-45deg)', fontSize: '15px', border: 'none', background: 'none', width: '100%', textAlign: 'center'}} value={newStats.poder} onChange={(e) => setNew({...newStats, poder: e.target.value})} onKeyDown={handleKeyPress}/>
+                    </div>
+                    <p className={styles.textLosangulo}>Poder</p>
+                </div>
+                <div className={styles.fundoLosanguloPoint}>
+                    <div className={styles.losanguloPequeno}>
+                        <p style={{transform: 'rotate(-45deg)', fontSize: '15px'}}>{props.odio}</p>
+                    </div>
+                    <p className={styles.textLosangulo}>Ódio</p>
+                </div>
+                <div className={styles.fundoLosanguloPoint}>
+                    <div className={styles.losanguloPequeno}>
+                        <p style={{transform: 'rotate(-45deg)', fontSize: '15px'}}>{props.bloqueio}</p>
+                    </div>
+                    <p className={styles.textLosangulo}>Bloqueio</p>
+                </div>
+                <div className={styles.fundoLosanguloPoint}>
+                    <div className={styles.losanguloPequeno}>
+                        <p style={{transform: 'rotate(-45deg)', fontSize: '15px'}}>{props.armadura}</p>
+                    </div>
+                    <p className={styles.textLosangulo}>Armadura</p>
                 </div>
             </div>
-        </>
+
+            <div style={{width: '100%', justifyContent: 'center',  display: 'flex', flexDirection: 'column', gap: '05px'}}>
+                <p>Proeficiência em combate</p>
+                <p style={{fontSize: '15px', fontWeight: '300'}}>{props.proeficiencia_de_combate}</p>
+            </div>
+            <div style={{width: '100%', justifyContent: 'center',  display: 'flex', flexDirection: 'column', gap: '05px'}}>
+                <p>Habilidades mortais</p>
+                <p style={{fontSize: '15px', fontWeight: '300'}}>{props.habilidades_mortais}</p>
+            </div>
+            <div style={{width: '100%', justifyContent: 'center',  display: 'flex', flexDirection: 'column', gap: '05px'}}>
+                <div  style={{display: 'flex', alignItems: 'center', gap: '15px'}}><p>Descrição/ História</p> {!descricao && <IoMdArrowDropdownCircle style={{cursor: 'pointer'}} onClick={() => setDescricao(true)}/>}{descricao && <IoMdArrowDropupCircle  style={{cursor: 'pointer'}} onClick={() => setDescricao(false)}/>}</div>
+                {descricao && <p style={{fontSize: '15px', fontWeight: '300', width: '550px'}}>{props.descricao}</p> }
+            </div>
+
+
+    </>
     )
 }
