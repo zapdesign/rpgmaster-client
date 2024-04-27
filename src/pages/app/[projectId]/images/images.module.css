@@ -1,0 +1,88 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 50px;
+    min-height: 100vh;
+  }
+
+.headerImageJust{
+    display: flex;
+    gap: 35px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.headerImage{
+    display: flex;
+    gap: 35px;
+}
+
+.backgroundImage{
+    margin-top: 45px;
+    width: 100%;
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    overflow-y: auto;
+}
+
+.ImageBlock{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 22%;
+}
+
+.cursor{
+    cursor: pointer;
+}
+
+.modal{
+    position: fixed;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background: white;
+    color:black;
+    gap: 5px;
+    border-radius: 5px;
+}
+
+.selectModal{
+    cursor: pointer;
+    transition: 100ms;
+    width: 100%;
+    padding: 5px 15px;
+    text-align: center;
+}
+
+.selectModal:hover{
+    background: rgb(20, 20, 33);
+    color: white;
+}
+
+.fundoImagemGrande{
+    overflow: auto;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 100vw;
+    height: 100%; 
+}
+
+.imagemGrande{
+    width: auto;
+    height: auto;
+}
+
+.choose{
+    border-bottom: solid 1px white;
+}
+
+.headerText{
+    cursor: pointer;
+    padding-bottom: 5px;
+}

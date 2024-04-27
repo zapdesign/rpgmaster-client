@@ -169,7 +169,7 @@ export default function Home() {
           </div>
 
           <div className={styles.ajeitar}>
-            <img className={styles.imgPlataforma} src="/images/foto-app-login.png" alt="Foto tela inicial aplicativo RPG Master" />
+            <img className={styles.imgPlataforma} src="/login.png" alt="Foto tela inicial aplicativo RPG Master" />
           </div>
 
         </div>

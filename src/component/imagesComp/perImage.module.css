@@ -1,0 +1,21 @@
+.image{
+    object-fit: cover;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.hasAcess{
+    border: 1px solid red;
+}
+
+.fundoName{
+    padding: 0px 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.icon{
+    cursor: pointer;
+    color: #3E1ED2;
+}
+

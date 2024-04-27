@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { IoMdArrowDropdownCircle } from "react-icons/io";
 import styles from "@/styles/Home.module.css"
-import { GETALL, POST } from "@/function/api";
 import { Group, Mobs } from "@/type/mobs";
 import { axiosInstance } from "@/services/axiosInstance";
 import { useProjectStore } from "@/store/project";

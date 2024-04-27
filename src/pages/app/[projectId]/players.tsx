@@ -13,6 +13,7 @@ import PopupPlayerAdd from "@/component/popupPlayer";
 import { useQuery } from "react-query";
 import { IoTrashOutline } from "react-icons/io5";
 import Link from "next/link";
+import ItemList from "./teste";
 
 
 interface Player{
@@ -74,7 +75,6 @@ export default function Players(){
         try{
             const response = await axiosInstance.get(`player/all/${project[0].id}`)
             const data = await response.data
-            console.log(data)
             setPlayers(data)
 
         }catch(err){
@@ -98,7 +98,14 @@ export default function Players(){
         enabled: !!project[0]
     })
 
-
+    const items = [
+        { id: 'item-1', name: 'Item 1' },
+        { id: 'item-2', name: 'Item 2' },
+        { id: 'item-3', name: 'Item 3' },
+        { id: 'item-4', name: 'Item 4' },
+        { id: 'item-5', name: 'Item 5' },
+      ];
+      
     return (
         <AuthContent>
             <ProjectContext>
@@ -134,6 +141,7 @@ export default function Players(){
                         </div>
 
                         {popupIsActive && <PopupPlayerAdd setPopupisActive={setPopupisActive} projectId={project[0].id} searchPlayers={searchPlayers}></PopupPlayerAdd>}
+
                     </main>
                 </MenuPrincipal>
             </ProjectContext>

@@ -16,6 +16,7 @@ export interface Mobs{
     grupo: string
     rpg: string
     rodada: boolean
+    index: number
 }
 
 export interface Game{

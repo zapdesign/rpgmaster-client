@@ -1,22 +1,29 @@
 import { FaPlay } from "react-icons/fa";
 import styles from "@/styles/Home.module.css"
-import { IoIosSettings } from "react-icons/io";
 import { IoMdClose } from "react-icons/io";
-import Link from "next/link";
 import { useState } from "react";
 import SanfonaWallada from "@/component/sanfonaporquewallampediu";
-import { Mobs, Game, Group } from "@/type/mobs"
+import { Mobs, Group } from "@/type/mobs"
 import { useQuery } from 'react-query';
-import Image from "next/image";
 import MenuPrincipal from "@/component/menu";
 import MobView from "@/component/mobView";
-import ListMobs from "@/component/listUsandoMobs";
 import AuthContent from "@/Context/AuthContext";
 
 import { axiosInstance } from "@/services/axiosInstance";
 import { useUsersStore } from "@/store/users/Index";
 import ProjectContext from "@/Context/projectContext";
 import { useProjectStore } from "@/store/project";
+
+import {
+  DndContext,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  closestCorners,
+} from "@dnd-kit/core";
+import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
+import { Column } from "@/component/listUsandoMobs/Column";
 
 function rollDice(text: any) {
   const diceRegex = /(\d+)d(\d+)/g;
@@ -69,11 +76,12 @@ export default function Home() {
   
   const [ listUsando, setListUsando ] = useState(true)
   const [ usando, setUsando ] = useState<Mobs[]>([])
+
+  const [ selectedMob, setSelectedMobId] = useState("")
   
   const [ viewMob, setViewMob ] = useState(false)
   const [ atualMob, setAtualMob ] = useState<Mobs>()
 
-  const [selectedMobId, setSelectedMobId] = useState(0);
 
 
   const handleRollDice = (event: any) => {
@@ -131,7 +139,7 @@ export default function Home() {
     setUsando(novoUsando);
   };
 
-  const pegarMob = async (id: number) => {
+  const pegarMob = async (id: string) => {
     setSelectedMobId(id)
     setListMobs(false)
     setViewMob(true)
@@ -178,8 +186,6 @@ export default function Home() {
       setListUsando(true)
   }
 
-
-
   const { data, isLoading, isError } = useQuery('usando', async () => {
       await getUsado()
       setChangeProject({
@@ -189,6 +195,30 @@ export default function Home() {
   }, {
     enabled: !!project[0]
   });
+
+  // const sensors = useSensors(
+  //   useSensor(PointerSensor),
+  //   useSensor(KeyboardSensor, {
+  //     coordinateGetter: sortableKeyboardCoordinates,
+  //   })
+  // );
+
+
+  // const getMobsId = (id) => usando.findIndex((mobs) => mobs.id === id);
+
+  // const handleDragEnd = (event) => {
+  //   const { active, over } = event;
+  //   console.log(active, over)
+  //   if (active.id === over.id) return;
+
+  //   setUsando((mobs) => {
+  //     const originalPos = getMobsId(active.id);
+  //     const newPos = getMobsId(over.id);
+
+  //     return arrayMove(mobs, originalPos, newPos);
+  //   });
+  // };
+
 
   if(isLoading){
     return (
@@ -218,7 +248,7 @@ export default function Home() {
 
 
               <div className={styles.ladoMobs} >
-                <div style={{height: '68%', overflow: 'auto'}}>
+                <div style={{height: '100%', overflowY: "auto", overflowX: "hidden"}}>
 
                   <div className={styles.alignFlex} style={{padding: '0px 15px'}}>
                     <p>Mobs</p>
@@ -226,24 +256,23 @@ export default function Home() {
                   </div>
 
 
-                  {listUsando && (
-                    <div className={styles.fundoListaUsando} style={{margin: '25px 0px'}}>
-                        {usando[0] !== undefined && usando.map((cada: Mobs) => (
-                            <div key={cada.id} className={`${styles.fundoUsando} ${cada.id ===  String(selectedMobId)  ? styles.selectedMob : ''}`}  style={{padding: '15px 15px', borderRadius: '10px'}}>
-                              <ListMobs cada={cada} pegarMob={pegarMob} red={cada.rodada}></ListMobs>
-                            </div>
-                        ))}
+                  {usando[0] && (
+                    //     
+
+                    // <DndContext
+                    //   sensors={sensors}
+                    //   collisionDetection={closestCorners}
+                    //   onDragEnd={handleDragEnd}
+                    // >
+                    <div style={{margin: '25px 0px'}}>
+                    {/* id="listMonster" */}
+                      <Column  mobs={usando} pegarMob={pegarMob}/>
                     </div>
+
+                    // </DndContext>
                   )}
                 </div>
-                <div>
 
-                    <p  style={{ whiteSpace: 'pre-wrap' }}>{rollResult}</p>
-                  <div style={{display: 'flex', gap: '25px', width: '100%', alignItems: 'center', marginTop: '25px'}}>
-                      <label style={{display: 'flex',flexDirection: 'column', fontWeight: '300',fontSize: '17px'}} htmlFor="dano">Rolagem</label>
-                </div>
-
-                </div>
               </div>
 
 
@@ -270,7 +299,7 @@ export default function Home() {
                           <h1 style={{fontSize: "25px"}}>Detalhe do Mob</h1>
                           <IoMdClose style={{cursor: 'pointer'}} onClick={() => {
                                   setViewMob(false)
-                                  setSelectedMobId(0);
+                                  setSelectedMobId("");
                               }
                           }/>
                       </div>  

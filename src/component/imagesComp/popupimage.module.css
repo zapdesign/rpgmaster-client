@@ -1,0 +1,48 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 999;
+  }
+
+.popup {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 25px 35px;
+    width: 400px; 
+    height: auto;
+    background-color: #27273F; 
+    border: 1px solid #1B1D30; 
+}
+
+.alinharHeader{
+    display: flex;
+    justify-content: space-between;
+}
+
+.input{
+    width: 100%;
+    padding: 5px 15px;
+    border: none;
+}
+
+.salvar{
+    padding: 5px 15px;
+    font-size: 15px;
+    background: #3C20D0;
+    border: none;
+    transition: 300ms;
+    cursor: pointer;
+  }
+  
+  .salvar:hover{
+    transform: scale(115%);
+  }
