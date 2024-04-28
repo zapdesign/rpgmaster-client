@@ -97,15 +97,7 @@ export default function Players(){
     }, {
         enabled: !!project[0]
     })
-
-    const items = [
-        { id: 'item-1', name: 'Item 1' },
-        { id: 'item-2', name: 'Item 2' },
-        { id: 'item-3', name: 'Item 3' },
-        { id: 'item-4', name: 'Item 4' },
-        { id: 'item-5', name: 'Item 5' },
-      ];
-      
+    
     return (
         <AuthContent>
             <ProjectContext>

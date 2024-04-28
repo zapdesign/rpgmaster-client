@@ -35,7 +35,7 @@ export default function Sessoes(){
             const response = await axiosInstance.get(`/project/all/${users[0].id}`)
             setSections(response.data)
             setSectionExist(true)
-            addProject(undefined)
+            addProject([])
             return
 
         }catch(err){
@@ -87,8 +87,8 @@ export default function Sessoes(){
     }
 
 
-    const { data, isLoading, isError } = useQuery('projects', async () => {
-        await searchProjects()
+    const { data, isLoading, isError } = useQuery('projects', () => {
+        searchProjects()
     }, {
         enabled: users[0] !== undefined
     })
@@ -134,7 +134,7 @@ export default function Sessoes(){
             <main style={{width: "100%", height:'100vh'}}>
                 <menu style={{width: "100%", padding: '20px 50px', display: 'flex', justifyContent: 'space-between',alignItems: 'center', background: '#11121B'}}>
                     <Image width="150" height="50" src="/logo.svg" alt="Logo nosso app"></Image>    
-                    <IoMdSettings />
+                    <Link href={`/app/config`} style={{cursor: "pointer"}}><IoMdSettings /></Link>
 
                 </menu>                
 
@@ -154,7 +154,6 @@ export default function Sessoes(){
                             </div>
                         ))}
                     </div>
-
                 </section>
             </main>
         </AuthContent>

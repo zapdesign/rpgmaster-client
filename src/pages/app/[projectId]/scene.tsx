@@ -125,8 +125,11 @@ export default function Home() {
   }
 
   const getUsado = async () => {
-    setUsando([])
     const response = await axiosInstance(`all-monster/master/${project[0].id}/`);
+    if(response.data[0] === undefined){
+      setUsando([])
+      return
+    }
     const novoUsando = await Promise.all(response.data.map(async (cada: Mobs) => {
       const novaResponse = await axiosInstance.get(`/upload/get/${cada.image_monster}`);
       const novaBase64Image = Buffer.from(novaResponse.data, 'binary').toString('base64');

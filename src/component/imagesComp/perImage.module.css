@@ -8,6 +8,10 @@
     border: 1px solid red;
 }
 
+.isActive{
+    border: 1px solid green;
+}
+
 .fundoName{
     padding: 0px 10px;
     display: flex;

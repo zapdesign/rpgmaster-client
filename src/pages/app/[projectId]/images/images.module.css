@@ -67,7 +67,7 @@
     cursor: pointer;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     position: absolute;
     width: 100vw;
     height: 100%; 

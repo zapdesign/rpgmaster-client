@@ -44,7 +44,7 @@ export default function PopupPlayerAdd({setPopupisActive, projectId, searchPlaye
 
             await axiosInstance.post(`player`, {
                 name: name,
-                email: email,
+                email: email.toLowerCase(),
                 password: "912931923912",
                 project_id: projectId
             })

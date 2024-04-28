@@ -2,12 +2,16 @@ import MenuPrincipal from "@/component/menu";
 import AuthContent from "@/Context/AuthContext";
 import ProjectContext from "@/Context/projectContext";
 import styles from "./images.module.css"
+import { io } from 'socket.io-client';
+import { token } from '@/services/takeToken';
+import { URL } from '@/services/baseURL';
 import { FaRegFileImage } from "react-icons/fa6";
 import { useProjectStore } from "@/store/project";
 import { useEffect, useState } from "react";
 import PopUpImage from "@/component/imagesComp/popupUploadImage";
 import { axiosInstance } from "@/services/axiosInstance";
 import PerImage from "@/component/imagesComp/perImage";
+import { text } from "stream/consumers";
 
 export interface MasterImage{
     id: string
@@ -15,10 +19,22 @@ export interface MasterImage{
     type: string
     image_name: string
     project_id: string
-    player_visible: string 
+    player_visible: boolean 
+    is_active: boolean
     created_at: string
 }
 
+const socket = io(URL, {
+    auth: {
+        token: token
+    }
+})
+
+interface Payload {
+    id?: string
+    text: string
+    project_id: string
+}
 
 export default function ImagesMaster(){
 
@@ -74,11 +90,51 @@ export default function ImagesMaster(){
         }
     }
 
-    useEffect(() => {
-        getImageType("lugares")
-        setTypeImage("lugares")
-    }, [])
+    const attImage = async (id: string, type: boolean) => {
+        try{
+            const newBody = {
+                is_active: type,
+            }
+            await axiosInstance.patch(`images/update-master-project/${id}`, {...newBody})
+        }catch(err){
 
+            console.error(`Algo deu errado: ${err}`)
+        }
+    }
+
+    async function sendImage(name: string, id: string, type: boolean, typeSearch: string) {
+
+        let message: Payload = {
+            project_id: project[0].id,
+            text: name
+        };
+        socket.emit('msgChangeImage', message); 
+        await attImage(id, type)
+        setModal(false)
+        getImageType(typeSearch)
+    }
+
+
+    useEffect(() => {
+        async function joinChatRoom() {
+            if (project[0] && project[0].id) {
+                socket.emit('joinRoom', project[0].id);
+            } else {
+            }
+        }
+    
+        async function setupSocket() {
+            socket.connect();
+            socket.on('connect', joinChatRoom);
+        }
+    
+        setupSocket();
+    
+        return () => {
+            socket.disconnect();
+            socket.off('connect', joinChatRoom);
+        };
+    }, [socket, project]);
 
     return (
         <AuthContent>
@@ -115,7 +171,7 @@ export default function ImagesMaster(){
                                     <PerImage cada={cada} setGrandImage={setGrandImage} setModal={setModal} modal={modal} openImage={openImage}></PerImage>
                                     {modal && grandImage === cada.id && (
                                         <div className={styles.modal}>
-                                            <p className={styles.selectModal}>Tornar Ativa</p> 
+                                            {cada.is_active ? <p className={styles.selectModal} onClick={() => sendImage("", cada.id, false, cada.type)}>Desativar</p> : <p className={styles.selectModal} onClick={() => sendImage(cada.image_name, cada.id, true, cada.type)}>Tornar Ativa</p> }
                                             {cada.player_visible ? <p className={styles.selectModal} onClick={() => addPlayer(false, cada.type)}>Retirar do player</p> : <p className={styles.selectModal} onClick={() => addPlayer(true, cada.type)}>Adicionar para o player</p>}
                                             
                                             <p className={styles.selectModal} onClick={() => {

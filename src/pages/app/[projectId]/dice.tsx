@@ -123,12 +123,7 @@ export default function Dice(){
                                                 <p style={{fontSize: '25px', fontWeight: 700}}>{result.d6Conta}</p>
                                             </div>
                                         )}
-                                        {result.d12Conta !== 0 && (
-                                            <div className={styles.resultadoContaFundo}>
-                                                <Image width={25} height={28} src="/d12.svg" alt="Dado de 12 faces"></Image>
-                                                <p style={{fontSize: '25px', fontWeight: 700}}> {result.d12Conta}</p>
-                                            </div>
-                                        )}
+
                                     </div>
                                         {result.temMais && <p style={{marginTop: '35px'}}>Resultados Totais:</p>}
                                         {!result.temMais && <p style={{marginTop: '35px'}}>Resultados Totais:</p>}

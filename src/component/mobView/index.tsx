@@ -43,8 +43,8 @@ export default function MobView({ props, getUsado, setViewMob }: any) {
         const confirmarExclusao = window.confirm("Tem certeza que deseja excluir este mob?");
         if (confirmarExclusao) {
             await axiosInstance.delete(`/all-monster/${props.id}`)
-            getUsado()
             setViewMob(false)
+            getUsado()
             return
         }
         return

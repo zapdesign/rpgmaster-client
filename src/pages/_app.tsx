@@ -7,11 +7,11 @@ import "react-toastify/dist/ReactToastify.css";
 
 
 export const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 1000 * 60 * 5,
-    },
-  },
+  // defaultOptions: {
+  //   queries: {
+  //     staleTime: 1000 * 60 * 5,
+  //   },
+  // },
 })
 
 export default function App({ Component, pageProps }: AppProps) {
