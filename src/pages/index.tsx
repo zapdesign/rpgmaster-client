@@ -120,7 +120,7 @@ export default function Home() {
       mutate()
       return
 
-    }catch(err){
+    }catch(err: any){
 
       let msg = err.response.data.message[0]
 

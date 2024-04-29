@@ -1,7 +1,5 @@
 import { useState } from 'react'
 import styles from './mobview.module.css'
-import { DELETE, PUT } from '@/function/api';
-import { FaUserAstronaut } from 'react-icons/fa';
 import Image from 'next/image';
 import { Mobs } from '@/type/mobs';
 import { IoMdArrowDropdownCircle } from "react-icons/io";

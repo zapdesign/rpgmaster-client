@@ -9,7 +9,7 @@ import styles from "@/styles/Home.module.css"
 import { useState } from "react";
   
   
-  export const Column = ({ mobs, pegarMob }) => {
+  export const Column = ({ mobs, pegarMob }: any) => {
 
     const [selectedMobId, setSelectedMobId] = useState(0);
 

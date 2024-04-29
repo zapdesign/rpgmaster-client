@@ -4,7 +4,7 @@ import ListMobs from ".";
 import styles from "./dnd.module.css"
 
 
-export const MobsItem = ({ cada, id, pegarMob }) => {
+export const MobsItem = ({ cada, id, pegarMob }: any) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id });
 

@@ -13,7 +13,6 @@ import PopupPlayerAdd from "@/component/popupPlayer";
 import { useQuery } from "react-query";
 import { IoTrashOutline } from "react-icons/io5";
 import Link from "next/link";
-import ItemList from "./teste";
 
 
 interface Player{
@@ -124,9 +123,11 @@ export default function Players(){
 
                         <div style={{display: 'flex', flexDirection: 'column', gap: '25px'}}>
                             {players[0] !== undefined && players.map((cada: Player) => (
-                                <div key={cada.id} style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-                                    <p>{cada.name}</p>
-                                    <p>{cada.email}</p>
+                                <div key={cada.id} style={{display: 'flex', alignItems: 'center', justifyContent: "space-between"}}>
+                                    <div style={{width: "80%", display: "flex"}}>
+                                        <Link href={`/app/${project[0].id}/${cada.id}/player`} target="_blank" style={{width: "30%"}}><p>{cada.name}</p></Link>
+                                        <p>{cada.email}</p>
+                                    </div>
                                     <IoTrashOutline onClick={() => delPlayer(cada.id)}  style={{cursor: "pointer"}}/>
                                 </div>
                             ))}

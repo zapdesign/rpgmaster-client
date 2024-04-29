@@ -1,7 +1,7 @@
 
 
 
-export default function RollMaster({rollResult}) {
+export default function RollMaster({rollResult}: any) {
 
 
     return (

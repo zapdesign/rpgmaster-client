@@ -18,6 +18,7 @@ export default function AuthContent({children}: {children: React.ReactNode}){
     
                     const response = await axios.get(`${URL}/me`, {
                         headers: {
+                            "ngrok-skip-browser-warning": true,
                             Authorization: `Bearer ${token}`
                         }
                     })

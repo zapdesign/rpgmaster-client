@@ -6,9 +6,8 @@ import { IoIosSettings } from "react-icons/io";
 import { FaDiceD20 } from "react-icons/fa";
 import { FaFilm } from "react-icons/fa";
 import { useProjectStore } from "@/store/project";
-import { FaChessBoard } from "react-icons/fa6";
 import { GoPeople } from "react-icons/go";
-
+import Chat from "./chat";
 
 export default function MenuPrincipal({
     children,
@@ -37,6 +36,7 @@ export default function MenuPrincipal({
             
             </section>
             {children}
+            <Chat></Chat>
         </section>
     )
   }

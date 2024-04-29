@@ -62,6 +62,7 @@
     color: white;
 }
 
+
 .fundoImagemGrande{
     overflow: auto;
     cursor: pointer;
@@ -75,8 +76,11 @@
 
 .imagemGrande{
     width: auto;
+    max-width: 100%;
     height: auto;
+    max-height: 90%;
 }
+
 
 .choose{
     border-bottom: solid 1px white;

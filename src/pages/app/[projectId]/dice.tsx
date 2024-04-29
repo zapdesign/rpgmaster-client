@@ -10,10 +10,14 @@ interface Dados{
     d12: number
 }
 
-interface Result{
-    d6: {
-        "1": number
-    }
+interface Result {
+    d6: { r: number }[];
+    d12: { r: number }[];
+    d6Conta: number;
+    d12Conta: number;
+    menorD12: number;
+    maiorD12: number;
+    temMais: boolean;
 }
 
 export default function Dice(){
@@ -24,7 +28,15 @@ export default function Dice(){
     })
 
     const [ listResult, setListResult ] = useState(false)
-    const [ result, setResult ]  = useState({})
+    const [result, setResult] = useState<Result>({
+        d6: [],
+        d12: [],
+        d6Conta: 0,
+        d12Conta: 0,
+        menorD12: 0,
+        maiorD12: 0,
+        temMais: false
+    });
 
     const rollDices = () => {
         if(dados.d6 === 0 && dados.d12 === 0){
@@ -38,7 +50,7 @@ export default function Dice(){
         
         console.log('rodou')
         
-        const resultados = {
+        const resultados: any = {
             d6: [],
             d12: [],
             d6Conta: 0,
@@ -65,8 +77,8 @@ export default function Dice(){
 
         if (resultados.d12.length >= 2 && dados.d6 !== 0) {
             resultados.temMais = true
-            resultados.menorD12 = Math.min(...resultados.d12.map(dado => dado.r));
-            resultados.maiorD12 = Math.max(...resultados.d12.map(dado => dado.r));
+            resultados.menorD12 = Math.min(...resultados.d12.map((dado: { r: any; }) => dado.r));
+            resultados.maiorD12 = Math.max(...resultados.d12.map((dado: { r: any; }) => dado.r));
         }
 
         console.log(resultados.temMais)
@@ -84,12 +96,12 @@ export default function Dice(){
                             <h1>Role seu destino</h1>
 
                             <div style={{display: 'flex', marginTop: '25px', alignItems: 'center', gap: '25px'}}>
-                                <input className={styles.inputFundo} type="number" onChange={(e)=> setDados({...dados, d6: e.target.value})} />
+                                <input className={styles.inputFundo} type="number" onChange={(e)=> setDados({...dados, d6: Number(e.target.value)})} />
                                 <Image width={35} height={35} src="/d6.svg" alt="Dado de 6 faces"></Image>
                             </div>
 
                             <div style={{display: 'flex', marginTop: '10px', alignItems: 'center', gap: '25px'}}>
-                                <input className={styles.inputFundo} type="number" onChange={(e)=> setDados({...dados, d12: e.target.value})} />
+                                <input className={styles.inputFundo} type="number" onChange={(e)=> setDados({...dados, d12: Number(e.target.value)})} />
                                 <Image width={38} height={38} src="/d12.svg" alt="Dado de 12 faces"></Image>                           
                             </div>
                             <button className={styles.salvar} onClick={rollDices}>Rodar dados</button>
@@ -103,16 +115,20 @@ export default function Dice(){
                                     {result.d6[0] !== undefined && (
                                         <div style={{display: "flex", gap: '15px', alignItems: 'center'}}>
                                             <Image width={35} height={35} src="/d6.svg" alt="Dado de 6 faces"></Image>
-                                            {result.d6.map(cada => (
-                                                <p>{cada.r}</p>
+                                            {result.d6.map((cada, index) => (
+                                                <div key={index}>
+                                                    <p>{cada.r}</p>
+                                                </div>
                                             ))}
                                         </div>
                                     )}
                                     {result.d12[0] !== undefined && (
                                         <div style={{display: "flex",marginTop:'15px', gap: '15px', alignItems: 'center'}}>
                                             <Image width={35} height={38} src="/d12.svg" alt="Dado de 12 faces"></Image>
-                                            {result.d12.map(cada => (
+                                            {result.d12.map((cada, index) => (
+                                                <div key={index}>
                                                 <p>{cada.r}</p>
+                                                </div>
                                             ))}
                                         </div>
                                     )}
@@ -128,7 +144,7 @@ export default function Dice(){
                                         {result.temMais && <p style={{marginTop: '35px'}}>Resultados Totais:</p>}
                                         {!result.temMais && <p style={{marginTop: '35px'}}>Resultados Totais:</p>}
 
-                                    <div style={{marginTop: '25px', display: 'flex',flexDirection: '', gap: '25px'}}>
+                                    <div style={{marginTop: '25px', display: 'flex', gap: '25px'}}>
                                         {result.temMais && (
                                             <>
                                                 

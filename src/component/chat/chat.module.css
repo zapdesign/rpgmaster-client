@@ -1,0 +1,157 @@
+@keyframes slideInRight {
+0% {
+    transform: translateX(100%);
+}
+100% {
+    transform: translateX(0);
+}
+}
+
+
+.textoPrincipal{
+    font-family: 'Aniron', 'Cinzel', sans-serif;
+    font-size: 12px;
+    text-align: center;
+}
+
+.chatContainer {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 300px;
+    height: 100vh;
+    background-color: #282742;
+    z-index: 999;
+    border-radius: 10px 0px 0px 10px;
+    animation: slideInRight 0.3s ease forwards; 
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.visible {
+    right: 0;
+}
+
+.botaoAbrir {
+    height: 30px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+    background: #282742;
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    z-index: 1000; 
+    border: none;
+}
+
+.headerChat{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background: #403F52;
+    align-items: center;
+    border-radius: 10px 0px 0px 0px;
+}
+
+.fundoDigitar{
+    display: flex;
+    justify-content: space-between;
+    background: #38365C;
+    border-top: solid 1px #403F52;
+    padding: 20px 15px;
+    align-items: flex-end;
+    gap: 15px;
+}
+
+.fundoTexto{
+    width: 85%;
+}
+
+.fundoIcon{
+    width: 15%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.icons{
+    cursor: pointer;
+}
+
+.inputMsg{
+    background: none;
+    border: none;
+    width: 100%;
+    min-height: 15px;
+    height: auto; 
+    resize: none; 
+}
+
+.inputMsg:focus {
+    outline: none;
+  }
+
+.inputMsg::placeholder{
+    color: rgb(219, 219, 219);
+}
+
+
+.fundoHistorico{
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+}
+
+.alignRight{
+    display: flex;
+    justify-content: flex-end;
+}
+.alignLeft{
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    gap: 10px;
+    max-width: 100%;
+}
+
+.fundoBubble{
+    background: #0E0F17;
+    border-radius: 7px;
+    padding: 15px 15px;
+    width: auto;
+    max-width: 100%;
+}
+
+.msgText{
+    font-size: 13px;
+    word-break: break-word;
+    white-space: pre-wrap;
+}
+
+.fundoFotoChat{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 150px;
+    background-color: #3E1ED2;
+}
+
+.fotoChat{
+    padding: 5px 12px;
+
+    color: white;
+}

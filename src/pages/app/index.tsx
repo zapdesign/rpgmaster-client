@@ -35,7 +35,6 @@ export default function Sessoes(){
             const response = await axiosInstance.get(`/project/all/${users[0].id}`)
             setSections(response.data)
             setSectionExist(true)
-            addProject([])
             return
 
         }catch(err){
