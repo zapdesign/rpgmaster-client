@@ -9,7 +9,9 @@ import { axiosInstance } from "@/services/axiosInstance";
 import { FaTrash } from "react-icons/fa";
 import Link from "next/link";
 import { useProjectStore } from "@/store/project";
-
+import Cookies from 'js-cookie';
+import axios from "axios";
+import { URL } from "@/services/baseURL";
 
 interface Sections{
     id: string
@@ -32,7 +34,13 @@ export default function Sessoes(){
 
     const searchProjects = async () => {
         try{
-            const response = await axiosInstance.get(`/project/all/${users[0].id}`)
+            const aguardar = async () => await new Promise(resolve => setTimeout(resolve, 1000));
+            const token = Cookies.get('@access_token');
+            const response = await axios.get(`${URL}/project/all/${users[0].id}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
             setSections(response.data)
             setSectionExist(true)
             return

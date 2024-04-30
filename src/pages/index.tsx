@@ -42,6 +42,7 @@ export default function Home() {
             path: "/",
             expires: new Date(new Date().getTime() + 60 * 60 * 23 * 1000),
           })
+          const aguardar =async () => await new Promise(resolve => setTimeout(resolve, 1000));
           push('/app/')
         },
         onError: (data: any) => {
@@ -109,8 +110,8 @@ export default function Home() {
 
 
     try{
-      const response = await axiosInstance.post(`/users`,{
-        email: newEmail,
+      await axiosInstance.post(`/users`,{
+        email: newEmail.toLocaleLowerCase(),
         password: newPass,
         name: newName
       })
@@ -124,12 +125,12 @@ export default function Home() {
 
       let msg = err.response.data.message[0]
 
-      // Tratamento da mensagem de erro
       if (msg === "password too weak") {
         msg = 'Sua senha é muito fraca.';
+      }else{
+        msg = `Seu email já está cadastrado`
       }
 
-      // Exibir a mensagem de erro
       toast(msg, {
         position: "bottom-center",
         autoClose: 3000,
