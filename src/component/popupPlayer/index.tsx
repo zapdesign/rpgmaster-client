@@ -10,12 +10,6 @@ interface PopupView {
 
 export default function PopupPlayerAdd({setPopupisActive, projectId, searchPlayers}: any){
 
-    const isValidEmail = (email: string): boolean => {
-        // Regex para validar o formato de e-mail
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-      };
-
     const [ email, setEmail ] = useState('')
     const [ name, setName ] = useState('')
 
@@ -29,16 +23,6 @@ export default function PopupPlayerAdd({setPopupisActive, projectId, searchPlaye
               })
               return
         }
-
-        if(!isValidEmail(email)){
-            toast('Preencha o email.', {
-              position: "bottom-center",
-              autoClose: 3000,
-              type: "error",
-            })
-      
-            return
-          }
 
         try{
 
@@ -58,9 +42,8 @@ export default function PopupPlayerAdd({setPopupisActive, projectId, searchPlaye
               setName('')
             searchPlayers()
 
-        }catch(err){
-            console.error(err)
-            toast('Algo deu errado...', {
+        }catch(err: any){
+            toast(err, {
                 position: "bottom-center",
                 autoClose: 3000,
                 type: "error",
@@ -76,8 +59,10 @@ export default function PopupPlayerAdd({setPopupisActive, projectId, searchPlaye
                     <IoMdClose style={{cursor: 'pointer'}} onClick={()=> setPopupisActive(false)}/>
                 </div>
 
-                    <input className={styles.input} type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder='Nome do Jogador'/>
-                    <input className={styles.input} type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Email do Jogador'/>
+                    <input className={styles.input} type="text" value={name} onChange={(e) => {
+                      setName(e.target.value)
+                      setEmail(e.target.value)
+                      }} placeholder='Nome do Jogador'/>
 
                     <button onClick={addPlayer} className={styles.salvar}>Adicionar Jogador</button>
             </div>

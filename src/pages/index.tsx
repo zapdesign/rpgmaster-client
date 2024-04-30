@@ -42,11 +42,10 @@ export default function Home() {
             path: "/",
             expires: new Date(new Date().getTime() + 60 * 60 * 23 * 1000),
           })
-          const aguardar =async () => await new Promise(resolve => setTimeout(resolve, 1000));
           push('/app/')
         },
         onError: (data: any) => {
-          let msg = data.response.data.message
+          let msg = data.response.data.error
           if(typeof msg === "string"){
             if(msg === "Unauthorized"){
               msg = 'Sem autorização.'
@@ -127,8 +126,6 @@ export default function Home() {
 
       if (msg === "password too weak") {
         msg = 'Sua senha é muito fraca.';
-      }else{
-        msg = `Seu email já está cadastrado`
       }
 
       toast(msg, {

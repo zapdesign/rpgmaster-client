@@ -122,6 +122,13 @@ export default function Players(){
                         </div>
 
                         <div style={{display: 'flex', flexDirection: 'column', gap: '25px'}}>
+                        <div style={{display: 'flex', alignItems: 'center', justifyContent: "space-between"}}>
+                                    <div style={{width: "80%", display: "flex"}}>
+                                        <p style={{width: "30%"}}>Personagem</p>
+                                        <p>Acesso</p>
+                                    </div>
+                                    <div>   </div>
+                                </div>
                             {players[0] !== undefined && players.map((cada: Player) => (
                                 <div key={cada.id} style={{display: 'flex', alignItems: 'center', justifyContent: "space-between"}}>
                                     <div style={{width: "80%", display: "flex"}}>
