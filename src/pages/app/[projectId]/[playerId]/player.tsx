@@ -10,7 +10,6 @@ import Armadura from "@/component/personagem/equipamentos/armadura";
 import LadoDireito from "@/component/personagem/ladoDireito";
 import { useState } from "react"; 
 import { NameInput } from "@/component/personagem/name";
-import Comitiva from "@/component/personagem/comitiva";
 import AuthContent from "@/Context/AuthContext";
 import { useRouter } from "next/router";
 import { useProjectStore } from "@/store/project";
