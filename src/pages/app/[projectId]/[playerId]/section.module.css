@@ -1,0 +1,56 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    padding: 25px 30px 25px;
+    min-height: 100vh;
+    width: 100%;
+    overflow-y: auto;
+    gap: 25px;
+}
+
+.alignFlex{
+    display: flex;
+}
+
+
+.fundoEsquerdo{
+    width: 70%;
+}
+.fundoDireito{
+    width: 30%;
+}
+
+.testesOrganizacao{
+    margin-top: 25px;
+    display: flex;
+    gap: 15px;
+    width: 100%;
+}
+
+.inventarioOrganizacao{
+    margin-top: 25px;
+    display: flex;
+    gap: 15px;
+    width: 100%;
+    height: 180px;
+}
+
+
+.barra{
+    margin: 45px 0px 5px;
+    height: 1px;
+    width: 100%;
+    background: #282742;
+}
+
+.barraInicial{
+    margin: 15px 0px 5px;
+    height: 1px;
+    width: 100%;
+    background: #282742;
+}
+
+.barraVertical{
+    width:1px;
+    background: #282742;
+}

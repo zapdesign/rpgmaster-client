@@ -1,0 +1,86 @@
+.input{
+    background-color: #403F52;
+    border-radius: 3px;
+    border: none;
+    padding: 10px 15px;
+    font-size: 12px;
+    width: 100%;
+}
+
+.labelInput{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+@font-face {
+    font-family: 'Aniron';
+    src: url('../../../../public/fonts/anirm___.ttf') format('truetype'); 
+}
+
+.nameFont{
+    font-family: 'Aniron', 'Cinzel', sans-serif;
+    font-size: 12px;
+}
+.label{
+    font-size: 11px;
+}
+
+
+
+.fundoGeral1{
+    margin-top: 25px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.fundoEsquerdo{
+    display: flex;
+    width: 100%;
+    gap: 15px;
+}
+.fundoDireito{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+}
+
+.culturaHeroica{
+    width: 33%;
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+}
+
+.idade{
+    width: 33%;
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+}
+
+.idadePequeno{
+    display: flex;
+    gap: 5px;
+}
+
+.idadeHeader80{
+    width: 70%;
+}
+
+.tesouro{
+    width: 30%;
+}
+
+.inputTesouro{
+    background-color: #403F52;
+    border-radius: 3px;
+    border: none;
+    padding: 10px 15px;
+    font-size: 12px;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}

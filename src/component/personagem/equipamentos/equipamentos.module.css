@@ -1,0 +1,84 @@
+.inputNome{
+    background-color: #403F52;
+    border-radius: 3px;
+    border: none;
+    padding: 10px 15px;
+    font-size: 12px;
+    width: 100%;
+}
+.inputGuerra{
+    background-color: #403F52;
+    border-radius: 3px;
+    border: none;
+    padding: 5px 15px;
+    font-size: 12px;
+    width: 100%;
+}
+
+.labelInput{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.fundoFlex{
+    display: flex;
+    width: 100%;
+    gap: 10px;
+}
+.fundoFlexInput{
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    align-items: center;
+}
+
+.fundoFlex60{
+    display: flex;
+    width: 54%;
+}
+.fundoFlex30{
+    display: flex;
+    width: 35%;
+    align-items: flex-end;
+}
+
+.fundoFlex20{
+    display: flex;
+    width: 23%;
+}
+.fundoFlex13{
+    display: flex;
+    width: 10%;
+    align-items: flex-end;
+}
+
+@font-face {
+    font-family: 'Aniron';
+    src: url('../../../../public/fonts/anirm___.ttf') format('truetype'); 
+}
+
+.nameFont{
+    font-family: 'Aniron', 'Cinzel', sans-serif;
+    font-size: 12px;
+}
+.label{
+    font-size: 11px;
+}
+
+
+.fundoEquipamento{
+    width: 66%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+    padding: 0px 10px 20px;
+}
+
+.fundoArmadura{
+    width: 33%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

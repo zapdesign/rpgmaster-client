@@ -1,0 +1,183 @@
+@font-face {
+    font-family: 'Aniron';
+    src: url('../../../../public/fonts/anirb___.ttf') format('truetype'); 
+}
+
+.input{
+    background-color: #403F52;
+    border-radius: 3px;
+    border: none;
+    padding: 10px 15px;
+    font-size: 12px;
+    width: 100%;
+}
+
+.labelInput{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.label{
+    font-size: 11px;
+}
+
+.fundoForca{
+    width: 33%;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.titulo{
+    font-size: 25px;
+    text-align: center;
+    font-weight: 700;
+    font-family: 'Aniron', 'Cinzel', sans-serif;
+}
+
+.titulo2{
+    font-size: 12px;
+    text-align: center;
+    font-weight: 700;
+    font-family: 'Aniron', 'Cinzel', sans-serif;
+}
+
+.fundoLosanguloPoint{
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    margin-top: 35px;
+}
+
+
+.losanguloPequeno{
+    width: 50px;
+    height: 50px;
+    position:relative;  
+    transform: rotate(45deg);
+    border: 2px solid #282742;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.losanguloGrande{
+    width: 70px;
+    height: 70px;
+    position: relative;  
+    transform: rotate(45deg);
+    border: 2px solid #282742;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ajeitarCima{
+    display: flex;
+    align-items: initial;
+    margin: -85px -90px 0px 0px;
+    gap: 5px;
+}
+
+.ajeitarBaixo{
+    display: flex;
+    align-items:center;
+    margin: 0px -130px -85px 0px;
+    gap: 10px;
+}
+.textosMenores{
+    font-size: 13px;
+}
+
+.ajeitarNA{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    margin-right: -25px;
+}
+
+.textNA{
+    font-size: 13px;
+    margin-right: -25px;
+}
+
+.textLosangulo{
+    margin-top:25px;
+    font-size: 15px;
+}
+
+.inputLosangulo{
+    transform: rotate(-45deg);
+    font-size: 23px;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: center;
+}
+
+
+.barra{
+    margin: 45px 0px 5px;
+    height: 2px;
+    width: 100%;
+    background: #282742;
+}
+
+.textSkills{
+    background-color: #0E0F17;
+    padding: 0px 15px;
+    font-family: 'Aniron', 'Cinzel', sans-serif;
+}
+
+.barraAbaixo{
+    margin: 5px 0px 5px;
+    height: 2px;
+    width: 100%;
+    background: #282742;
+}
+
+.alinharCheckbox{
+    padding: 0px 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.textosBaixo{
+    font-size: 11px;
+}
+
+.ajeitarLosanguloBaixo{
+    display: flex;
+    align-items: initial;
+    margin: -20px 0px -0px 0px;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.losanguloPequenoBaixo{
+    width: 40px;
+    height: 40px;
+    position:relative;  
+    transform: rotate(45deg);
+    border: 2px solid #282742;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.inputRecompensa{
+    background-color: #403F52;
+    border-radius: 3px;
+    border: none;
+    padding: 10px 15px;
+    font-size: 12px;
+    width: 100%;
+    height: 100%;
+    text-align: initial;
+    resize: none;
+}
+

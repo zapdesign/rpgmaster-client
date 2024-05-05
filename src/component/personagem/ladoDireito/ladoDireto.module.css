@@ -1,0 +1,170 @@
+@font-face {
+    font-family: 'Aniron';
+    src: url('../../../../public/fonts/anirm___.ttf') format('truetype'); 
+}
+
+.fundoDireito{
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    width: 100%;
+    padding: 0px 20px;
+    height: 100%;
+}
+
+.fundoFoto{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 265px;
+    border: solid 1px #282742;
+}
+
+.fundoFlex{
+    display: flex;
+}
+
+.fundoColunm{
+    display: flex;
+    flex-direction: column;
+    justify-content: initial;
+    gap: 10px;
+}
+.fundoLosanguloInicial{
+    width: 33%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.textoPrincipal{
+    font-family: 'Aniron', 'Cinzel', sans-serif;
+    font-size: 12px;
+    text-align: center;
+}
+.fundoLosanguloPoint{
+    display: flex; 
+    align-items: center;
+    justify-content: cen
+    ter;
+    margin-top: 15px;
+}
+
+.losanguloPequeno{
+    width: 30px;
+    height: 30px;
+    transform: rotate(45deg);
+    border: 2px solid #282742;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.losanguloPequeno2{
+    margin: 25px 0px;
+    width: 50px;
+    height: 50px;
+    position:relative;  
+    transform: rotate(45deg);
+    border: 2px solid #282742;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.losanguloGrande{
+    width: 50px;
+    height: 50px;
+    transform: rotate(45deg);
+    border: 2px solid #282742;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inputLosangulo{
+    transform: rotate(-45deg);
+    font-size: 23px;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: center;
+}
+
+.inputLosanguloPequeno{
+    transform: rotate(-45deg);
+    font-size: 15px;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: center;
+}
+.ajeitarCima{
+    display: flex;
+    align-items: center;
+    margin: -45px -88px 0px 0px;
+    gap: 5px;
+}
+
+.ajeitarBaixo{
+    display: flex;
+    align-items:center;
+    margin: 0px 30px -43px 8px;
+    gap: 10px;
+}
+.textosMenores{
+    font-size: 13px;
+}
+
+.textoEsquerda{
+    font-family: 'Aniron', 'Cinzel', sans-serif;
+    align-items: initial;
+    font-size: 12px;
+}
+
+.barra{
+    margin: 45px 0px 5px;
+    height: 1px;
+    width: 100%;
+    background: #282742;
+}
+
+
+.organizarCondicoes{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.ferimento{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.input{
+    background-color: #403F52;
+    border-radius: 3px;
+    border: none;
+    padding: 10px 15px;
+    font-size: 12px;
+    width: 100%;
+}
+
+.inputRecompensa{
+    background-color: #403F52;
+    border-radius: 3px;
+    border: none;
+    padding: 10px 15px;
+    font-size: 12px;
+    width: 100%;
+    height: 100%;
+    text-align: initial;
+    resize: none;
+}
+
+.imagePlayer{
+    object-fit: cover;
+}
+
