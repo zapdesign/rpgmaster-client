@@ -22,10 +22,6 @@ export default function ImageChat({cada}: any) {
         
     };
 
-    useEffect(() => {
-        getImage()
-    }, [])
-
     return (
         <>
          {cada.player_id == "01" ? 

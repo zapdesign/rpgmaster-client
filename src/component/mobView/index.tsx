@@ -14,7 +14,7 @@ interface MobView {
     getUsado: () => Promise<void>;
 }
 
-export default function MobView({ props, getUsado, setViewMob }: any) {
+export default function MobView({ props, getUsado, setViewMob, setUsando }: any) {
 
 
     const [newStats, setNew] = useState({
@@ -40,6 +40,7 @@ export default function MobView({ props, getUsado, setViewMob }: any) {
     const deleteMonster = async () => {
         const confirmarExclusao = window.confirm("Tem certeza que deseja excluir este mob?");
         if (confirmarExclusao) {
+            setUsando([])
             await axiosInstance.delete(`/all-monster/${props.id}`)
             setViewMob(false)
             getUsado()

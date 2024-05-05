@@ -309,7 +309,7 @@ export default function Home() {
 
                       {atualMob !== undefined && (
                         <div key={atualMob.id} className={styles.MobScroll} style={{padding: '45px 25px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '25px', background: '#11121B', marginTop: '15px', overflow: 'auto', height: '100%'}}>
-                            <MobView props={atualMob} getUsado={getUsado} setViewMob={setViewMob}/>
+                            <MobView props={atualMob} getUsado={getUsado} setUsando={setUsando} setViewMob={setViewMob}/>
                         </div>
                       )}
                     </>
