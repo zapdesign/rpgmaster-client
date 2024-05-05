@@ -55,6 +55,7 @@
     width: 100%;
     padding: 5px 15px;
     text-align: center;
+    color: rgb(20, 20, 33);
 }
 
 .selectModal:hover{

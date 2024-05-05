@@ -33,7 +33,7 @@ const socket = io(URL, {
 interface Payload {
     id?: string
     text: string
-    project_id: string
+    room: string
 }
 
 export default function ImagesMaster(){
@@ -103,9 +103,8 @@ export default function ImagesMaster(){
     }
 
     async function sendImage(name: string, id: string, type: boolean, typeSearch: string) {
-
         let message: Payload = {
-            project_id: project[0].id,
+            room: project[0].id,
             text: name
         };
         socket.emit('msgChangeImage', message); 

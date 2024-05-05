@@ -32,13 +32,16 @@ export default function ImageChat({cada}: any) {
          <div className={styles.fundoFotoChat}>
              <img height="100%"  width="100%" src="/logoBranca.svg" alt='Logo chat'></img>
          </div> : 
-         image == "SW1hZ2Ugbm90IGZvdW5k" ? 
          <div className={styles.fundoFotoChat}>
-                <p>{getFirstLetter(cada.name)}</p>
-        </div> : 
-        <div className={styles.fundoFotoChat}>
-            <img height="100%"  width="100%" src={`data:image/jpeg;base64,${image}`} alt='Logo chat'></img>
-        </div>
+                  <p>{getFirstLetter(cada.name)}</p>
+          </div> 
+        //  image == "SW1hZ2Ugbm90IGZvdW5k" ? 
+        //  <div className={styles.fundoFotoChat}>
+        //         <p>{getFirstLetter(cada.name)}</p>
+        // </div> : 
+        // <div className={styles.fundoFotoChat}>
+        //     <img height="100%"  width="100%" src={`data:image/jpeg;base64,${image}`} alt='Logo chat'></img>
+        // </div>
          } 
 
         </>
