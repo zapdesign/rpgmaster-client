@@ -8,6 +8,7 @@ import { token } from '@/services/takeToken';
 import { v4 as uuidv4 } from 'uuid';
 import { axiosInstance } from '@/services/axiosInstance';
 import { useProjectStore } from '@/store/project';
+import ImageChat from './imageChat';
 
 interface Message {
     id: string
@@ -102,6 +103,7 @@ export default function Chat() {
                 id: cada.id,
                 name: cada.name,
                 text: cada.text,
+                player_id: cada.player_id,
                 isMine: cada.player_id === "11111111111111"
             }))
             setMsg(novo)
@@ -144,7 +146,7 @@ export default function Chat() {
                             ) : (
                                 <>
                                     <div>
-                                        <p className={styles.fundoFotoChat}>{getFirstLetter(cada.name)}</p>
+                                        <ImageChat cada={cada}></ImageChat>
                                     </div>
                                     <div className={styles.fundoBubble}>
                                         <p className={styles.msgText}>{cada.text}</p>
