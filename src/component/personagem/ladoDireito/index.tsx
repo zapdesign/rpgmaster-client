@@ -31,9 +31,9 @@ export default function LadoDireito({ changePlayer, newCaracter, setNewCaracter 
 
     const getImage = async () => {
         try{
-            const novaResponse = await axiosInstance.get(`/upload/get/player-${newCaracter.id}`);
-            const novaBase64Image = Buffer.from(novaResponse.data, 'binary').toString('base64');
-            setImagePlayer(novaBase64Image)
+            const response = await axiosInstance.get(`/upload/get/player-${newCaracter.id}`);
+            const data = await response.data
+            setImagePlayer(data)
 
         }catch(err){
             console.error(err)
@@ -61,7 +61,7 @@ export default function LadoDireito({ changePlayer, newCaracter, setNewCaracter 
             {playerId !== undefined && (
                 <div className={styles.fundoFoto}>
                     <div className={styles.fundoFoto}>
-                        <img height="100%"  width="100%" style={{cursor: 'pointer'}} className={styles.imagePlayer} src={`data:image/jpeg;base64,${imagePlayer}`}></img>
+                        <img height="100%"  width="100%" style={{cursor: 'pointer'}} className={styles.imagePlayer} src={`${imagePlayer}`}></img>
                     </div>
                 </div>
             )}
