@@ -52,7 +52,7 @@ export default function SanfonaWallada({props, listMob, getUsado}: SanfonaWallad
                     <div className={styles.alinMobs}>
                         {mobs[0] !== undefined && mobs.map((cada: Mobs) => (
                             <div className={styles.fundoMobs} onClick={() => addNewUsado(cada)} key={cada.id}>
-                                <p>{cada.nome}</p>
+                                <p className={styles.hoverBlack}>{cada.nome}</p>
                             </div>
                         ))}
                     </div>

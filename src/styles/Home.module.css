@@ -57,6 +57,9 @@
   color: black;
   background-color: aliceblue;
 }
+.hoverBlack:hover{
+  color: black;
+}
 
 .fundoListaUsando{
   display: flex;
