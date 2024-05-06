@@ -14,9 +14,7 @@ export default function PerImage({cada, setGrandImage, setModal, openImage}: any
     const getImage = async () => {
         try{
             const response = await axiosInstance(`upload/get/${cada.image_name}`)
-            const data = await response.data
-            const novaBase64Image = Buffer.from(data.data, 'binary').toString('base64');
-            setImage(novaBase64Image)
+            setImage(response.data)
         }catch(err){
             console.error(err)
         }
@@ -30,8 +28,8 @@ export default function PerImage({cada, setGrandImage, setModal, openImage}: any
         <>
             <img width="100%" height="150px" className={`${styles.image} ${cada.player_visible ? styles.hasAcess : styles.att} ${cada.is_active ? styles.isActive : styles.att}`} onClick={() => {
                 if(cada.name === image) return
-                openImage(`data:image/jpeg;base64,${image}`)
-            }} src={`data:image/jpeg;base64,${image}`}/>
+                openImage(`${image}`)
+            }} src={`${image}`}/>
             <div className={styles.fundoName}>
                 <p>{cada.name}</p>
                 <MdMore className={styles.icon} onClick={() => {

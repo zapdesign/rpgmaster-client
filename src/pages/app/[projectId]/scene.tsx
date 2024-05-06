@@ -130,16 +130,8 @@ export default function Home() {
       setUsando([])
       return
     }
-    const novoUsando = await Promise.all(response.data.map(async (cada: Mobs) => {
-      const novaResponse = await axiosInstance.get(`/upload/get/${cada.image_monster}`);
-      const novaBase64Image = Buffer.from(novaResponse.data, 'binary').toString('base64');
-      
-      return {
-        ...cada,
-        image_monster: `data:image/jpeg;base64,${novaBase64Image}`
-      } 
-    }));
-    setUsando(novoUsando);
+    
+    setUsando(response.data);
   };
 
   const pegarMob = async (id: string) => {
@@ -148,15 +140,7 @@ export default function Home() {
     setViewMob(true)
 
     const response = await axiosInstance.get(`all-monster/master/unique/${id}`)
-    const monster = response.data;
-    const novaResponse = await axiosInstance.get(`/upload/get/${monster.image_monster}`);
-    const novaBase64Image = Buffer.from(novaResponse.data, 'binary').toString('base64');
-      
-    const novoMonster = {
-      ...monster,
-      image_monster: `data:image/jpeg;base64,${novaBase64Image}`
-    };
-    setAtualMob(novoMonster)
+    setAtualMob({...response.data})
   }
 
   const changeRodada = async (event: any) => {

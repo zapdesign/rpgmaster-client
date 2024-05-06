@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './mobview.module.css'
 import Image from 'next/image';
 import { Mobs } from '@/type/mobs';
@@ -16,6 +16,7 @@ interface MobView {
 
 export default function MobView({ props, getUsado, setViewMob, setUsando }: any) {
 
+    const [ image, setImage ] = useState("")
 
     const [newStats, setNew] = useState({
         resistencia: props.resistencia,
@@ -49,10 +50,23 @@ export default function MobView({ props, getUsado, setViewMob, setUsando }: any)
         return
     }
 
+    const getImage = async () => {
+        try{
+            const response = await axiosInstance(`upload/get/${props.image_monster}`)
+            setImage(response.data)
+        }catch(err){
+            console.error(err)
+        }
+    }
+
+    useEffect(() => {
+        getImage()
+    },[])
+
     return (
         <>
             <div className={styles.diamond}>
-                <Image width={100} height={100} src={props.image_monster} style={{ objectFit: 'cover', border: 'solid 3px #282741', borderRadius: '10px', cursor: 'pointer' }} alt={props.nome}></Image>
+                <img width={100} height={100} src={image} style={{ objectFit: 'cover', border: 'solid 3px #282741', borderRadius: '10px', cursor: 'pointer' }} alt={props.nome}></img>
             </div>
 
             <div style={{ display: 'flex', gap: '25px', width: '100%', justifyContent: 'center', alignItems: 'center' }}>
