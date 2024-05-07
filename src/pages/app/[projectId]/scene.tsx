@@ -91,7 +91,6 @@ export default function Home() {
   }
 
   const runGame = async () => {  
-      setListUsando(false)
 
       changeProject.rodada++
 
@@ -102,10 +101,9 @@ export default function Home() {
       await axiosInstance.patch(`/all-monster/reset-rodada/${project[0].id}`, {
         rodada: false
       })
-      
-      getUsado()
-      setListUsando(true)
-  }
+      setUsando([])
+      await getUsado()
+    }
 
   const { data, isLoading, isError } = useQuery('usando', async () => {
       await getUsado()

@@ -1,9 +1,7 @@
-import MenuPrincipal from "@/component/menu";
 import styles from "@/styles/Home.module.css"
 import Image from "next/image";
 import { useState } from "react";
-import ProjectContext from "@/Context/projectContext";
-import AuthContent from "@/Context/AuthContext";
+import { MdClose } from "react-icons/md";
 
 interface Dados{
     d6: number
@@ -89,7 +87,11 @@ export default function Dice({setPopUpDice}: any){
     return (
             <div style={{display: "flex"}}>
                 <div style={{width: '25%'}}>
-                    <p onClick={() => setPopUpDice(false)} style={{cursor: 'pointer'}}>Role seu destino</p>
+                    <div onClick={() => setPopUpDice(false)}>
+                    <MdClose />
+
+                    </div>
+                    <p  style={{cursor: 'pointer'}}>Role</p>
 
                     <div style={{display: 'flex', marginTop: '25px', alignItems: 'center', gap: '25px'}}>
                         <input className={styles.inputFundo} type="number" onChange={(e)=> setDados({...dados, d6: Number(e.target.value)})} />
