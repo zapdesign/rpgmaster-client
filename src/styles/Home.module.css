@@ -17,14 +17,37 @@
 
 .ladoMobs{
   width: 30%;
-  height: 100%;
+  height: 98%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
+.fundoDice{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  width: 35px;
+  height: 35px;
+  border-radius: 8px 8px 8px 0px;
+  cursor: pointer;
+}
+
+.dice{
+  color: #282741;
+  margin-left: -2;
+}
+
 .ladoInfo{
   width: 60%;
+}
+
+.backgroundRoll{
+  position: absolute;
+  background-color: #282741;
+  padding: 20px 55px;
+  border-radius: 15px;
 }
 
 .alignFlex{

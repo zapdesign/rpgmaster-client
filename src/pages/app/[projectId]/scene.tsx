@@ -13,6 +13,7 @@ import { axiosInstance } from "@/services/axiosInstance";
 import { useUsersStore } from "@/store/users/Index";
 import ProjectContext from "@/Context/projectContext";
 import { useProjectStore } from "@/store/project";
+import { BsFillDice5Fill } from "react-icons/bs";
 
 import {
   DndContext,
@@ -24,39 +25,7 @@ import {
 } from "@dnd-kit/core";
 import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import { Column } from "@/component/listUsandoMobs/Column";
-
-function rollDice(text: any) {
-  const diceRegex = /(\d+)d(\d+)/g;
-  const matches = [...text.matchAll(diceRegex)];
-  let total = 0;
-  const rolls: any = [];
-  
-  matches.forEach(match => {
-    const numberOfDice = parseInt(match[1]);
-    const diceType = parseInt(match[2]);
-    const diceResults = [];
-    
-    for (let i = 0; i < numberOfDice; i++) {
-          let roll:any = Math.floor(Math.random() * diceType) + 1;
-          if (diceType === 12 && roll === 12) {
-              roll = "Gandalf";
-          } else if (diceType === 12 && roll === 11) {
-              roll = "Sauron";
-          }
-          diceResults.push(roll);
-          if (typeof roll === "number") {
-              total += roll;
-          }
-      }
-
-      rolls.push({
-          expression: match[0],
-          results: diceResults
-      });
-  });
-
-  return { total, rolls };
-}
+import Dice from "@/component/dicePopup/dice";
 
 export default function Home() {
 
@@ -70,54 +39,19 @@ export default function Home() {
 
   const [ roll, setRoll ] = useState('')
   const [ rollResult, setRollResult ] = useState('')
-
+  
   const [ listMobs, setListMobs ] = useState(false)
   const [ group, setGroup ] = useState([{id: 1, name: "Orc"}, {id: 2, name: "Lobos"}, {id: 3, name: "Homens do Mal"}, {id: 4, name: "Trolls"}, {id: 5, name: "Mortos Vivos"}])
   
   const [ listUsando, setListUsando ] = useState(true)
   const [ usando, setUsando ] = useState<Mobs[]>([])
-
+  
   const [ selectedMob, setSelectedMobId] = useState("")
   
   const [ viewMob, setViewMob ] = useState(false)
   const [ atualMob, setAtualMob ] = useState<Mobs>()
-
-
-
-  const handleRollDice = (event: any) => {
-    if (event.key === 'Enter') {
-        // Verifica se há mais de 7 dados de cada número
-        const regex = /(\d+)d(\d+)/g;
-        const matches = roll.match(regex);
-        let isValid = true;
-
-        if (matches) {
-            matches.forEach(match => {
-                const numberOfDice = parseInt(match.split('d')[0]);
-                if (numberOfDice > 7) {
-                    isValid = false;
-                }
-            });
-        }
-
-        // Se for válido, realiza a rolagem
-        if (isValid) {
-            const { total, rolls } = rollDice(roll);
-            let resultText = '';
-
-            rolls.forEach((roll: any) => {
-                resultText += `${roll.expression}: ${roll.results.join(', ')}\n`;
-            });
-
-            resultText += '\n';
-
-            setRollResult(`Resultados individuais:\n${resultText}Soma total: ${total}`);
-        } else {
-            // Se não for válido, exibe uma mensagem de erro
-            alert('O número máximo de dados de cada número é 7.');
-        }
-    }
-};
+  
+  const [ popUpDice, setPopUpDice ] = useState(false)
 
   const getGroup = async () => {
     setViewMob(false)
@@ -259,7 +193,9 @@ export default function Home() {
                     // </DndContext>
                   )}
                 </div>
-
+                <div className={styles.fundoDice} onClick={() => setPopUpDice(!popUpDice)}>
+                  <BsFillDice5Fill  className={styles.dice}/>
+                </div>
               </div>
 
 
@@ -301,6 +237,12 @@ export default function Home() {
               </div>
               
             </div>
+
+            {popUpDice && (
+              <div className={styles.backgroundRoll}>
+                <Dice setPopUpDice={setPopUpDice}></Dice>
+              </div>
+            )}
 
 
           </main>
