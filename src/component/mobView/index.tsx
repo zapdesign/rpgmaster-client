@@ -17,6 +17,7 @@ interface MobView {
 export default function MobView({ props, getUsado, setViewMob, setUsando }: any) {
 
     const [ image, setImage ] = useState("")
+    const [ changes, setChanges ] = useState(false)
 
     const [newStats, setNew] = useState({
         resistencia: props.resistencia,
@@ -26,16 +27,14 @@ export default function MobView({ props, getUsado, setViewMob, setUsando }: any)
 
     const [descricao, setDescricao] = useState(false)
 
-    const handleKeyPress = async (event: any) => {
-        if (event.key === 'Enter') {
-            console.log(newStats)
-            await axiosInstance.patch(`/all-monster/${props.id}`, {
-                resistencia: newStats.resistencia,
-                poder: newStats.poder,
-                nickname: newStats.nickname
-            })
-            getUsado()
-        }
+    const attMob = async (event: any) => {
+        setChanges(false)
+        await axiosInstance.patch(`/all-monster/${props.id}`, {
+            resistencia: newStats.resistencia,
+            poder: newStats.poder,
+            nickname: newStats.nickname
+        })
+        getUsado()
     };
 
     const deleteMonster = async () => {
@@ -65,8 +64,9 @@ export default function MobView({ props, getUsado, setViewMob, setUsando }: any)
 
     return (
         <>
-            <div className={styles.diamond}>
+            <div className={styles.diamond} style={{alignItems: 'center', display: 'flex', gap: 20}}>
                 <img width={100} height={100} src={image} style={{ objectFit: 'cover', border: 'solid 3px #282741', borderRadius: '10px', cursor: 'pointer' }} alt={props.nome}></img>
+                {changes && <button style={{padding: "2px 15px"}} onClick={attMob}>Salvar</button>}
             </div>
 
             <div style={{ display: 'flex', gap: '25px', width: '100%', justifyContent: 'center', alignItems: 'center' }}>
@@ -76,7 +76,10 @@ export default function MobView({ props, getUsado, setViewMob, setUsando }: any)
                 <FaRegTrashAlt style={{ cursor: 'pointer' }} onClick={deleteMonster} />
             </div>
 
-            <input style={{ fontSize: '15px', border: 'none', background: 'none', width: '100%', textAlign: 'center' }} name='nick' placeholder='Nickname' value={newStats.nickname} type="text" onChange={(e) => setNew({ ...newStats, nickname: e.target.value })} onKeyDown={handleKeyPress} />
+            <input style={{ fontSize: '15px', border: 'none', background: 'none', width: '100%', textAlign: 'center' }} name='nick' placeholder='Nickname' value={newStats.nickname} type="text" onChange={(e) => {
+                setNew({ ...newStats, nickname: e.target.value })
+                setChanges(true)
+                }} />
 
 
 
@@ -89,14 +92,20 @@ export default function MobView({ props, getUsado, setViewMob, setUsando }: any)
                 </div>
                 <div className={styles.fundoLosanguloPoint}>
                     <div className={styles.losanguloPequeno}>
-                        <input style={{ transform: 'rotate(-45deg)', fontSize: '15px', border: 'none', background: 'none', width: '100%', textAlign: 'center' }} value={newStats.resistencia} onChange={(e) => setNew({ ...newStats, resistencia: e.target.value })} onKeyDown={handleKeyPress} />
+                        <input style={{ transform: 'rotate(-45deg)', fontSize: '15px', border: 'none', background: 'none', width: '100%', textAlign: 'center' }} value={newStats.resistencia} onChange={(e) => {
+                            setNew({ ...newStats, resistencia: e.target.value })
+                            setChanges(true)
+                            }} />
 
                     </div>
                     <p className={styles.textLosangulo}>Resistência</p>
                 </div>
                 <div className={styles.fundoLosanguloPoint}>
                     <div className={styles.losanguloPequeno}>
-                        <input style={{ transform: 'rotate(-45deg)', fontSize: '15px', border: 'none', background: 'none', width: '100%', textAlign: 'center' }} value={newStats.poder} onChange={(e) => setNew({ ...newStats, poder: e.target.value })} onKeyDown={handleKeyPress} />
+                        <input style={{ transform: 'rotate(-45deg)', fontSize: '15px', border: 'none', background: 'none', width: '100%', textAlign: 'center' }} value={newStats.poder} onChange={(e) => {
+                            setNew({ ...newStats, poder: e.target.value })
+                            setChanges(true)
+                            }} />
                     </div>
                     <p className={styles.textLosangulo}>Poder</p>
                 </div>
