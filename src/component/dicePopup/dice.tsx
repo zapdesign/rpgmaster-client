@@ -21,8 +21,8 @@ interface Result {
 export default function Dice({setPopUpDice}: any){
 
     const [ dados, setDados ] = useState<Dados>({
-        d6: 0,
-        d12: 0
+        d6: 3,
+        d12: 1
     })
 
     const [ listResult, setListResult ] = useState(false)
@@ -88,18 +88,18 @@ export default function Dice({setPopUpDice}: any){
             <div style={{display: "flex"}}>
                 <div style={{width: '25%'}}>
                     <div onClick={() => setPopUpDice(false)}>
-                    <MdClose />
+                    <MdClose style={{cursor: 'pointer'}}/>
 
                     </div>
-                    <p  style={{cursor: 'pointer'}}>Role</p>
+                    <p  >Role</p>
 
                     <div style={{display: 'flex', marginTop: '25px', alignItems: 'center', gap: '25px'}}>
-                        <input className={styles.inputFundo} type="number" onChange={(e)=> setDados({...dados, d6: Number(e.target.value)})} />
+                        <input className={styles.inputFundo} type="number" value={dados.d6} onChange={(e)=> setDados({...dados, d6: Number(e.target.value)})}  style={{border: "solid 1px white", borderRadius: "5px"}}/>
                         <Image width={35} height={35} src="/d6.svg" alt="Dado de 6 faces"></Image>
                     </div>
 
                     <div style={{display: 'flex', marginTop: '10px', alignItems: 'center', gap: '25px'}}>
-                        <input className={styles.inputFundo} type="number" onChange={(e)=> setDados({...dados, d12: Number(e.target.value)})} />
+                        <input className={styles.inputFundo} type="number" value={dados.d12} onChange={(e)=> setDados({...dados, d12: Number(e.target.value)})} style={{border: "solid 1px white", borderRadius: "5px"}}/>
                         <Image width={38} height={38} src="/d12.svg" alt="Dado de 12 faces"></Image>                           
                     </div>
                     <button className={styles.salvar} onClick={rollDices}>Rodar dados</button>

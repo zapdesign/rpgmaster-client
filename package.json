@@ -24,6 +24,7 @@
     "react-beautiful-dnd-next": "^11.0.5",
     "react-dom": "^18",
     "react-icons": "^5.0.1",
+    "react-player": "^2.16.0",
     "react-query": "^3.39.3",
     "react-toastify": "^10.0.4",
     "socket.io-client": "^4.7.5",
@@ -39,6 +40,7 @@
     "@types/react-beautiful-dnd": "^13.1.8",
     "@types/react-dom": "^18",
     "@types/uuid": "^9.0.8",
+    "@types/youtube-dl": "^3.0.5",
     "eslint": "^8",
     "eslint-config-next": "14.1.1",
     "typescript": "^5"

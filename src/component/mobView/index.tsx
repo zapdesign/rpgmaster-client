@@ -66,7 +66,7 @@ export default function MobView({ props, getUsado, setViewMob, setUsando }: any)
         <>
             <div className={styles.diamond} style={{alignItems: 'center', display: 'flex', gap: 20}}>
                 <img width={100} height={100} src={image} style={{ objectFit: 'cover', border: 'solid 3px #282741', borderRadius: '10px', cursor: 'pointer' }} alt={props.nome}></img>
-                {changes && <button style={{padding: "2px 15px"}} onClick={attMob}>Salvar</button>}
+                {changes && <button style={{padding: "2px 15px", cursor: "pointer"}} onClick={attMob}>Salvar</button>}
             </div>
 
             <div style={{ display: 'flex', gap: '25px', width: '100%', justifyContent: 'center', alignItems: 'center' }}>

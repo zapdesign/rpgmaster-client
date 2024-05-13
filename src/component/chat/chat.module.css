@@ -30,6 +30,14 @@
     justify-content: space-between;
 }
 
+.newMessage{
+    margin-top: -15px;
+    border-radius: 20px;
+    height: 4px;
+    width: 4px;
+    background: orange;
+}
+
 .visible {
     right: 0;
 }
