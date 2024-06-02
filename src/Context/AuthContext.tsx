@@ -16,12 +16,7 @@ export default function AuthContent({children}: {children: React.ReactNode}){
             if(users !== undefined){
                 try{
     
-                    const response = await axios.get(`${URL}/me`, {
-                        headers: {
-                            "ngrok-skip-browser-warning": true,
-                            Authorization: `Bearer ${token}`
-                        }
-                    })
+                    const response = await axios.get(`${URL}/me`)
                     addUser(response.data)
 
 
